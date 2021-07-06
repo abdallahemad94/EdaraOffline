@@ -13,15 +13,16 @@ namespace EdaraOffline
     public static class Program
     {
         static IConfiguration Config { get; set; }
-
+        static string TrueValues = "Yes-True-1-Ok";
+        static string FalseValues = "No-False-0-No";
         static void Main(string[] args)
         {
             Config = new ConfigurationBuilder().AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "AppSettings.json")).Build();
             FileInfo chromeExe = GetChromeExe();
             IEnumerable<string> chromeShortcuts = GetChromeShortcutPaths();
-            if (args.Length == 0 || args.Any(x => x.ToLower() == "install"))
+            if (TrueValues.ToLower().Contains(Config["Install"].ToLower()))
                 InstallOffline(chromeExe, chromeShortcuts);
-            else if (args.Any(x => x.ToLower() == "uninstall"))
+            else if(FalseValues.ToLower().Contains(Config["Install"].ToLower()))
                 UninstallOffline(chromeExe, chromeShortcuts);
             Console.ReadKey();
         }
