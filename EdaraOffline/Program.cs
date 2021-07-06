@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using File = System.IO.File;
 namespace EdaraOffline
@@ -109,7 +110,9 @@ namespace EdaraOffline
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.KeepAlive = false;
                 request.Timeout = 3000;
-                using var response = (HttpWebResponse)request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
+                if (response.StatusCode == HttpStatusCode.OK)
+                    Task.Delay(5000);
                 return true;
             }
             catch
