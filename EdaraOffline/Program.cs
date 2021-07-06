@@ -61,15 +61,16 @@ namespace EdaraOffline
         }
         public static IEnumerable<string> GetChromeShortcutPaths()
         {
+            string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             List<string> chromeShortCutpaths = new List<string>
             {
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms), @"Google Chrome.lnk"), // common start menu
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), @"Google Chrome.lnk"), // start menu
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"Google Chrome.lnk"),
-                @"C:\Users\A.Emad\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\Google Chrome.lnk",
+                Path.Combine(ApplicationData, @"Microsoft\Internet Explorer\Quick Launch\Google Chrome.lnk"),
             };
 
-            string taskbarPath = @"C:\Users\A.Emad\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar";
+            string taskbarPath = Path.Combine(ApplicationData, @"Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
             if (Directory.Exists(taskbarPath))
             {
                 chromeShortCutpaths.AddRange(
